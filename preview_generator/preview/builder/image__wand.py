@@ -17,12 +17,16 @@ def convert_pdf_to_jpeg(
         pdf: typing.Union[str, typing.IO[bytes]],
         preview_size: ImgDims
 ) -> BytesIO:
-    with WImage(file=pdf) as img:
+    all_pages = WImage(blob=pdf)
+    single_image = all_pages.sequence[0]
+
+    with WImage(single_image) as img:
+        img.format = 'jpg'
         img.background_color = Color('white')
         # HACK - D.A. - 2017-08-01
         # The following line avoid black background in case of transparent
         # objects found on the page. As we save to JPEG, this is not a problem
-        img.alpha_channel = False
+        img.alpha_channel = 'remove'
 
         resize_dims = compute_resize_dims(
             ImgDims(img.width, img.height),
