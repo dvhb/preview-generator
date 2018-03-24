@@ -62,6 +62,7 @@ class OfficePreviewBuilderLibreoffice(PreviewBuilder):
             'application/vnd.oasis.opendocument.database',
             'application/vnd.oasis.opendocument.image',
             'application/vnd.openofficeorg.extension',
+            'application/rtf',
             ]  # type: typing.List[str]
 
     @classmethod
